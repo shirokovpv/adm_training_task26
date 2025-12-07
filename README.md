@@ -122,7 +122,14 @@
 <img width="1100" height="909" alt="image" src="https://github.com/user-attachments/assets/9b3d4e21-1963-44c5-97e7-6736d7261d9d" />
 <p>&nbsp;</p>
 <p><span style="font-weight: 400;">Настройка прошла успешно. Теперь надо проверить работу LDAP:</span></p>
-
-
-
+<ul>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Авторизуемся на сервере:</span><span style="font-weight: 400;"> <code>kinit admin</code></span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Создадим пользователя otus-user с паролем Otus1234:</span></li>
+<code>ipa user-add otus-user --first=Otus --last=User --password</code>
+<img width="613" height="496" alt="image" src="https://github.com/user-attachments/assets/d3c6ed81-afa7-4d17-b98e-81bf917ab1b5" />
+<li style="font-weight: 400;"><span style="font-weight: 400;">На хосте client1 или client2 выполним команду <code>kinit otus-user</code>:</span></li>
+<img width="613" height="147" alt="image" src="https://github.com/user-attachments/assets/c30805bc-381c-46ec-ac83-4dc187f86530" />
+</ul>
+<p><span style="font-weight: 400;">Система запросила у нас пароль и потребовала ввести новый. На этом процесс добавления хостов к FreeIPA-серверу завершен.</span></p>
+<p><span style="font-weight: 400;">Задание завершено.</span></p>
 
