@@ -30,21 +30,67 @@
 <ul>
 <li style="font-weight: 400;"><span style="font-weight: 400;">Установим часовой пояс: <code>timedatectl set-timezone Europe/Moscow</code></li>
 <li style="font-weight: 400;"><span style="font-weight: 400;">Установим утилиту chrony: <code>yum install -y chrony</code></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Запустим chrony и добавим его в автозагрузку: <code>systemctl enable chronyd -now</code></li>
+<p>*********</p>
+<p>Возможно, проблема с этой конкретной версией, установленной из этого репозитория - команда не хотела выполняться.</p>
+<p>После небольшого траблшутинга -</p>
+<pre>cd /etc/yum.repos.d/<br />sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*<br />sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*<br />yum update -y<br /></pre>
+<p>- все пошло как надо</p>
+<p>*********</p>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Запустим chrony и добавим его в автозагрузку: <code>systemctl enable chronyd --now</code></li>
 <li style="font-weight: 400;"><span style="font-weight: 400;">Выключим Firewall: <code>systemctl stop firewalld</code></li>
 <li style="font-weight: 400;"><span style="font-weight: 400;">Отключаем автозапуск Firewalld: <code>systemctl disable firewalld</code></li>
 <li style="font-weight: 400;"><span style="font-weight: 400;">Остановим Selinux: <code>setenforce 0</code></li>
+<img width="732" height="296" alt="image" src="https://github.com/user-attachments/assets/ef4af506-48d4-4811-96ed-3b8d86bcf1e2" />
+<li style="font-weight: 400;"><span style="font-weight: 400;">Поменяем в файле <strong>/etc/selinux/config</strong> параметр SELINUX на <strong>disabled</strong>
+<code>nano /etc/selinux/config</code></li>
+<p>*********</p>
+<p>Перед этим установим редактор nano (в этой системе его изначально нет) <code>yum install -y nano</code></p>
+<p>*********</p>
+<img width="880" height="255" alt="image" src="https://github.com/user-attachments/assets/811b5466-4058-4289-8b44-e7aaac4bf933" />
+<li style="font-weight: 400;"><span style="font-weight: 400;">Для дальнейшей настройки FreeIPA нам потребуется, чтобы DNS-сервер хранил запись о нашем LDAP-сервере. В рамках данного задания мы не будем настраивать отдельный DNS-сервер и просто добавим запись в файл /etc/hosts: <code>nano /etc/hosts</code></li>
+<img width="880" height="105" alt="image" src="https://github.com/user-attachments/assets/ee99410f-f8d0-482a-b5f4-20a0aca87654" />
+<li style="font-weight: 400;"><span style="font-weight: 400;">Установим модуль DL1: <code>yum install -y @idm:DL1</code></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Установим FreeIPA-сервер: <code>yum install -y ipa-server</code></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Запустим скрипт установки: <code>ipa-server-install</code></li>
+<p><span style="font-weight: 400;">Do you want to configure integrated DNS (BIND)? [no]: </span><strong>no</strong></p>
+<p><span style="font-weight: 400;">Server host name [ipa.otus.lan]: </span><strong>&lt;Нажимаем Enter&gt;</strong></p>
+<p><span style="font-weight: 400;">Please confirm the domain name [otus.lan]: </span><strong>&lt;Нажимем Enter&gt;</strong></p>
+<p><span style="font-weight: 400;">Please provide a realm name [OTUS.LAN]: </span><strong>&lt;Нажимаем Enter&gt;</strong></p>
+<p><span style="font-weight: 400;">Directory Manager password: </span><strong>&lt;Указываем пароль Otus1234&gt;</strong></p>
+<p><span style="font-weight: 400;">Password (confirm): </span><strong>&lt;Дублируем указанный пароль&gt;</strong></p>
+<p><span style="font-weight: 400;">IPA admin password: </span><strong>&lt;Указываем пароль Otus1234&gt;</strong></p>
+<p><span style="font-weight: 400;">Password (confirm): </span><strong>&lt;Дублируем указанный пароль&gt;</strong></p>
+<p><span style="font-weight: 400;">NetBIOS domain name [OTUS]: </span><strong>&lt;Нажимаем Enter&gt;</strong></p>
+<p><span style="font-weight: 400;">Do you want to configure chrony with NTP server or pool address? [no]: </span><strong>no</strong></p>
+<p><span style="font-weight: 400;">The IPA Master Server will be configured with:</span></p>
+<p><span style="font-weight: 400;">Hostname: &nbsp; &nbsp; &nbsp; ipa.otus.lan</span></p>
+<p><span style="font-weight: 400;">IP address(es): 192.168.57.10</span></p>
+<p><span style="font-weight: 400;">Domain name:&nbsp; &nbsp; otus.lan</span></p>
+<p><span style="font-weight: 400;">Realm name: &nbsp; &nbsp; OTUS.LAN</span></p>
+<p><span style="font-weight: 400;">The CA will be configured with:</span></p>
+<p><span style="font-weight: 400;">Subject DN: &nbsp; CN=Certificate Authority,O=OTUS.LAN</span></p>
+<p><span style="font-weight: 400;">Subject base: O=OTUS.LAN</span></p>
+<p><span style="font-weight: 400;">Chaining: &nbsp; &nbsp; self-signed</span></p>
+<p><em><span style="font-weight: 400;">Проверяем параметры, если всё устраивает, то нажимаем yes</span></em></p>
+<p><span style="font-weight: 400;">Continue to configure the system with these values? [no]: </span><strong>yes</strong></p>
+<img width="880" height="486" alt="image" src="https://github.com/user-attachments/assets/d92628d2-e813-47e0-adc7-0b0df8488100" />
 </ul>
-
-
-
-
-
-
-
-
-
-
+<p><span style="font-weight: 400;">После успешной установки FreeIPA, проверим, что сервер Kerberos может выдать нам билет:</span></p>
+<p><span style="font-weight: 400;"><code>kinit admin</code></span></p>
+<p><span style="font-weight: 400;"><code>klist</code></span></p>
+<img width="880" height="209" alt="image" src="https://github.com/user-attachments/assets/22790e4d-f00a-46ec-8a0e-61f37ba07366" />
+<p>&nbsp;</p>
+<p><span style="font-weight: 400;">Мы можем зайти в Web-интерфейс нашего FreeIPA-сервера, для этого на нашей хостовой машине нужно прописать следующую строку в файле Hosts:
+192.168.57.10 ipa.otus.lan</span></p>
+<img width="880" height="250" alt="image" src="https://github.com/user-attachments/assets/57b86605-21e8-41b7-873f-5efc8ab3bd63" />
+<p>&nbsp;</p>
+<p><span style="font-weight: 400;">После добавления DNS-записи откроем c нашей хост-машины веб-страницу https://ipa.otus.lan/ipa/ui/</span></p>
+<img width="1810" height="862" alt="image" src="https://github.com/user-attachments/assets/918e7a57-30e6-4e7f-b366-25032b06ce4d" />
+<p>&nbsp;</p>
+<p><span style="font-weight: 400;">Откроется окно управления FreeIPA-сервером. В имени пользователя укажем admin, в пароле укажем наш IPA admin password и нажмём "Войти".</span></p>
+<img width="1845" height="366" alt="image" src="https://github.com/user-attachments/assets/c4ea3b29-76f3-4da8-803f-ed814b7e0e93" />
+<p>&nbsp;</p>
+<p><span style="font-weight: 400;">Откроется веб-консоль управления FreeIPA. Данные во FreeIPA можно вносить как через веб-консоль, так и средствами командной строки. На этом установка и настройка FreeIPA-сервера завершена.</span></p>
 
 
 
