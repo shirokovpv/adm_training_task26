@@ -91,6 +91,33 @@
 <img width="1845" height="366" alt="image" src="https://github.com/user-attachments/assets/c4ea3b29-76f3-4da8-803f-ed814b7e0e93" />
 <p>&nbsp;</p>
 <p><span style="font-weight: 400;">Откроется веб-консоль управления FreeIPA. Данные во FreeIPA можно вносить как через веб-консоль, так и средствами командной строки. На этом установка и настройка FreeIPA-сервера завершена.</span></p>
+<p><strong>2) Ansible-playbook для конфигурации клиента</strong></p>
+<p>*********</p>
+<p>Произведем аналогичный траблшутинг для клиентов, чтобы можно было устанавливать пакеты (ну дистрибутив такой, ничего не поделать).</p>
+<p><code>vagrant ssh client1.otus.lan</code></p>
+<p><code>sudo -i</code></p>
+<pre>cd /etc/yum.repos.d/<br />sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*<br />sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*<br />yum update -y<br /></pre>
+<p><code>vagrant ssh client2.otus.lan</code></p>
+<p><code>sudo -i</code></p>
+<pre>cd /etc/yum.repos.d/<br />sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*<br />sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*<br />yum update -y<br /></pre>
+<p>*********</p>
+<p><span style="font-weight: 400;">В каталоге ~/task26 создадим каталог ansible: <code>mkdir ansible</code></p>
+<p><span style="font-weight: 400;">В каталоге ansible создадим файл <strong>hosts</strong> со следующими параметрами:</span></p>
+<p><code>[clients]</code></p>
+<p><code>client1.otus.lan ansible_host=192.168.57.11 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/client1.otus.lan/virtualbox/private_key</code></p>
+<p><code>client2.otus.lan ansible_host=192.168.57.12 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/client2.otus.lan/virtualbox/private_key</code></p>
+<img width="1549" height="195" alt="image" src="https://github.com/user-attachments/assets/2aa3be6c-69a6-4f5d-9d37-30cb6804760e" />
+<p>&nbsp;</p>
+<p><span style="font-weight: 400;">Далее создадим файл provision.yml, в котором непосредственно будет выполняться настройка клиентов:</span></p>
+<img width="827" height="863" alt="image" src="https://github.com/user-attachments/assets/2bf25b3b-24f7-4435-9601-23f33f5d3af3" />
+<p>&nbsp;</p>
+<p><span style="font-weight: 400;">Файлы прикладываю сюда.</span></p>
+
+
+
+
+
+
 
 
 
