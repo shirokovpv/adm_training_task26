@@ -101,22 +101,26 @@
 <p><code>sudo -i</code></p>
 <pre>cd /etc/yum.repos.d/<br />sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*<br />sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*<br />yum update -y<br /></pre>
 <p>*********</p>
-<p><span style="font-weight: 400;">В каталоге ~/task26 создадим каталог ansible: <code>mkdir ansible</code></p>
-<p><span style="font-weight: 400;">В каталоге ansible создадим файл <strong>hosts</strong> со следующими параметрами:</span></p>
+<p><span style="font-weight: 400;">В каталоге ~/task26 создадим файл <strong>hosts</strong> со следующими параметрами:</span></p>
 <p><code>[clients]</code></p>
 <p><code>client1.otus.lan ansible_host=192.168.57.11 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/client1.otus.lan/virtualbox/private_key</code></p>
 <p><code>client2.otus.lan ansible_host=192.168.57.12 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/client2.otus.lan/virtualbox/private_key</code></p>
-<img width="1549" height="195" alt="image" src="https://github.com/user-attachments/assets/2aa3be6c-69a6-4f5d-9d37-30cb6804760e" />
+<img width="1244" height="98" alt="image" src="https://github.com/user-attachments/assets/5a9f80b7-5cd4-4a05-92e8-fbcf0732e814" />
 <p>&nbsp;</p>
-<p><span style="font-weight: 400;">Далее создадим файл provision.yml, в котором непосредственно будет выполняться настройка клиентов:</span></p>
-<img width="827" height="863" alt="image" src="https://github.com/user-attachments/assets/2bf25b3b-24f7-4435-9601-23f33f5d3af3" />
+<p><span style="font-weight: 400;">Далее создадим файл <strong>provision.yml</strong>, в котором непосредственно будет выполняться настройка клиентов:</span></p>
+<img width="846" height="858" alt="image" src="https://github.com/user-attachments/assets/08231acd-ad5d-4956-8d42-6df18a5e4274" />
+<p>&nbsp;</p>
+<p><span style="font-weight: 400;">Template файла /</span><em><span style="font-weight: 400;">etc</span></em><span style="font-weight: 400;">/hosts <strong>hosts.j2</strong> выглядит следующим образом:</span></p>
+<p><em><span style="font-weight: 400;">127.0.0.1 &nbsp; localhost localhost.localdomain localhost4 localhost4.localdomain4</span></em></p>
+<p><em><span style="font-weight: 400;">::1 &nbsp; &nbsp; &nbsp; &nbsp; localhost localhost.localdomain localhost6 localhost6.localdomain6</span></em></p>
+<p><em><span style="font-weight: 400;">192.168.57.10 ipa.otus.lan ipa</span></em></p>
+<img width="607" height="94" alt="image" src="https://github.com/user-attachments/assets/9e5d1e84-c69d-493a-9af8-81d1a423f692" />
 <p>&nbsp;</p>
 <p><span style="font-weight: 400;">Файлы прикладываю сюда.</span></p>
-
-
-
-
-
+<p><span style="font-weight: 400;">Запускаем плейбук:</span></p>
+<p><span style="font-weight: 400;"><code>ansible-playbook -i hosts provision.yml</code></span></p>
+<img width="1100" height="909" alt="image" src="https://github.com/user-attachments/assets/9b3d4e21-1963-44c5-97e7-6736d7261d9d" />
+<p>&nbsp;</p>
 
 
 
