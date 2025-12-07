@@ -121,7 +121,7 @@
 <p><span style="font-weight: 400;"><code>ansible-playbook -i hosts provision.yml</code></span></p>
 <img width="1100" height="909" alt="image" src="https://github.com/user-attachments/assets/9b3d4e21-1963-44c5-97e7-6736d7261d9d" />
 <p>&nbsp;</p>
-
+<p><span style="font-weight: 400;">Настройка прошла успешно. Теперь надо проверить работу LDAP:</span></p>
 
 
 
