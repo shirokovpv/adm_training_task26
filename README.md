@@ -16,3 +16,10 @@
 <p>И изменить box_name и box_version (как в репозитории, если туда зайти).</p>
 <img width="246" height="145" alt="image" src="https://github.com/user-attachments/assets/82b82c99-e94c-43af-b112-5acaa47cce17" />
 <p>******************************</p>
+<p><span style="font-weight: 400;">Создадим в каталоге ~/task26 Vagrantfile, в котором будут указаны параметры наших ВМ:</span></p>
+<img width="637" height="734" alt="image" src="https://github.com/user-attachments/assets/1b28817f-3d5e-4398-8303-90797906d51e" />
+<p>&nbsp;</p>
+<p><span style="font-weight: 400;">Измененный файл прикладываю сюда. После создания Vagrantfile запустим виртуальные машины командой <code>vagrant up</code>. Будут созданы 3 виртуальных машины с ОС CentOS 8. Каждая ВМ будет иметь по 2ГБ ОЗУ и по одному ядру CPU.</span></span></p>
+<img width="1093" height="326" alt="image" src="https://github.com/user-attachments/assets/00cfee6e-1bb6-4517-9ddf-65f4d686c9c2" />
+<p>&nbsp;</p>
+<p><strong>1) Установка FreeIPA сервера</strong></p>
