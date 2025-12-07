@@ -23,3 +23,29 @@
 <img width="1093" height="326" alt="image" src="https://github.com/user-attachments/assets/00cfee6e-1bb6-4517-9ddf-65f4d686c9c2" />
 <p>&nbsp;</p>
 <p><strong>1) Установка FreeIPA сервера</strong></p>
+<p><span style="font-weight: 400;">Для начала нам необходимо настроить FreeIPA-сервер. Подключимся к нему по SSH с помощью команды: <code>vagrant ssh ipa.otus.lan</code> и перейдём в root-пользователя: <code>sudo -i</code></p>
+<img width="536" height="76" alt="image" src="https://github.com/user-attachments/assets/0518beff-8bf5-4146-b98a-3e213c0a6f42" />
+<p>&nbsp;</p>
+<p><span style="font-weight: 400;">Начнем настройку FreeIPA-сервера:</span></p>
+<ul>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Установим часовой пояс: <code>timedatectl set-timezone Europe/Moscow</code></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Установим утилиту chrony: <code>yum install -y chrony</code></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Запустим chrony и добавим его в автозагрузку: <code>systemctl enable chronyd -now</code></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Выключим Firewall: <code>systemctl stop firewalld</code></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Отключаем автозапуск Firewalld: <code>systemctl disable firewalld</code></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Остановим Selinux: <code>setenforce 0</code></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
